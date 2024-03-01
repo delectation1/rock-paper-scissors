@@ -1,0 +1,20 @@
+button {
+    padding: 16px 32px;
+}
+
+.flex-container {
+    display: flex;
+    gap: 24px;
+    padding: 16px 16vw;
+}
+
+.winner,
+.results {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.results {
+    margin-left: auto;
+}

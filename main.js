@@ -78,43 +78,47 @@ function playRound(playerSelection, computerSelection) {
 }
 
 
+function game(result) {
 
-function game() {
-
-    /* initialize variables outside loop scope playerWins computerWins and nubmer of games*/
-    let playerWins = 0;
-    let computerWins = 0;
-    const NUMBER_OF_GAMES = 5;
-
-    for (let i = 0; i < NUMBER_OF_GAMES; i++) {
-        /* initialize variables within loop scope to store the player choice and computer choice */
-        let userInput = prompt("Please type from Rock, Paper or Scissors");
-        let playerSelection = userInput.toLowerCase();
-        let computerSelection = getComputerChoice();
-        let result = playRound(playerSelection, computerSelection);
-
-        // update counters
-        if (result.substring(4,8) == "win!") {
-            playerWins += 1;
-        }
-        else if (result.substring(4,8) == "lose") {
-            computerWins += 1;
-        }
-
-        // tie has no evaluation as the counter just needs to be raised
-        console.log(result);
-        console.log(`Player: ${playerWins}`);
-        console.log(`Computer: ${computerWins}`);
+    // update counters
+    if (result.substring(4,8) == "win!") {
+        playerWins += 1;
+        let player = document.querySelector(".player");
+        player.textContent = `Player: ${playerWins}`;
     }
+    else if (result.substring(4,8) == "lose") {
+        computerWins += 1;
+        let computer = document.querySelector(".computer");
+        computer.textContent = `Computer: ${computerWins}`;
+    }
+
+    // print information to webpage
+    let results = document.querySelector(".results");
+    results.textContent = result;
+
+    let winner = document.querySelector(".winner");
+
+    counter++; 
+    let games = document.querySelector(".games");
+    games.textContent = `Game ${counter}`;
 
     // evaluate who won the best of 5
     if (playerWins > computerWins) {
-        return "Player wins!"
+        return winner.textContent = "Player wins!";
     }
     else if (playerWins == computerWins) {
-        return "It is a tie!"
+        return winner.textContent = "It is a tie!";
     }
     else {
-        return "Computer wins!"
+        return winner.textContent = "Computer wins!";
     }
 }
+
+const buttons = document.querySelectorAll("button");
+buttons.forEach( (button) => button.addEventListener('click', (e) => {
+    let computerSelection = getComputerChoice();
+    let userInput = e.target.className;
+    let playerSelection = userInput.toLowerCase();
+    let result = playRound(playerSelection, computerSelection);
+    game(result);
+}));
